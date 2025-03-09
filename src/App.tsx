@@ -7,6 +7,7 @@ const API_URL = "http://10.211.55.5:5121/api/auth"; // Бэкенд URL
 
 // Тип для языка
 type Language = "ru" | "en";
+// test
 
 const App: React.FC = () => {
   const [email, setEmail] = useState("");
