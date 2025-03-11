@@ -3,7 +3,7 @@ import axios from "axios";
 import { TextField, Button, Switch, FormControlLabel, Typography, Box, } from "@mui/material"; // Импортируем компоненты MUI
 import "./App.css"; // Подключаем стили
 
-const API_URL = "http://10.211.55.5:5121/api/auth"; // Бэкенд URL
+const API_URL = process.env.REACT_APP_API_URL;
 
 // Тип для языка
 type Language = "ru" | "en";
