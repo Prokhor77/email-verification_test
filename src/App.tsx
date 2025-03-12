@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { TextField, Button, Switch, FormControlLabel, Typography, Box, } from "@mui/material"; // Импортируем компоненты MUI
-import "./App.css"; // Подключаем стили
+import { TextField, Button, Switch, FormControlLabel, Typography, Box, } from "@mui/material";
+import "./App.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-// Тип для языка
+
 type Language = "ru" | "en";
-// test
+
 
 const App: React.FC = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
-  const [language, setLanguage] = useState<Language>("ru"); // Состояние для языка
-  const [timer, setTimer] = useState(0); // Таймер для отправки кода
+  const [language, setLanguage] = useState<Language>("ru");
+  const [timer, setTimer] = useState(0);
 
   // Локализованные тексты
   const texts = {
@@ -45,7 +45,6 @@ const App: React.FC = () => {
     },
   };
 
-  // Запуск таймера
   useEffect(() => {
     if (timer > 0) {
       const interval = setInterval(() => {
@@ -63,9 +62,9 @@ const App: React.FC = () => {
 
     try {
       const res = await axios.post(`${API_URL}/send-code`, { email });
-      setMessage(res.data.message); // Сообщение от сервера
+      setMessage(res.data.message);
       setStep(2);
-      setTimer(60); // Устанавливаем таймер на 60 секунд
+      setTimer(60);
     } catch (error: any) {
       if (error.response) {
         setMessage(`${texts[language].error}: ${error.response.data.message || texts[language].unknownError}`);
@@ -80,7 +79,7 @@ const App: React.FC = () => {
   const handleVerifyCode = async () => {
     try {
       const res = await axios.post(`${API_URL}/verify-code`, { email, code });
-      setMessage(res.data.message); // Сообщение от сервера
+      setMessage(res.data.message);
       if (res.data.success) setStep(3);
     } catch (error: any) {
       if (error.response) {
